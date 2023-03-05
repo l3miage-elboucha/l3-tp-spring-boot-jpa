@@ -120,9 +120,9 @@ public class AuthorsController {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Can't delete an author that doesn't exist");
         }
         try {
-            for (Book book : bookService.getByAuthor(id)) {
-                if (book.getAuthors().size() > 1) {
-                    bookService.delete(book.getId());
+            for (Book authorBook : bookService.getByAuthor(id)) {
+                if (authorBook.getAuthors().size() > 1) {
+                    bookService.delete(authorBook.getId());
                 }
             }
             this.authorService.delete(id);
