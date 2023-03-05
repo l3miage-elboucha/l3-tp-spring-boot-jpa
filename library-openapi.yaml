@@ -203,6 +203,34 @@ paths:
           description: Deleted
         404:
           description: The book was not found
+  /api/books/{id}/authors:
+    parameters:
+      - name: id
+        description: Book's id
+        in: path
+        required: true
+        schema:
+          type: number
+          format: int64
+    put:
+      summary: Update book authors
+      operationId: put-book-authors
+      requestBody:
+        content:
+          'application/json':
+            schema:
+              $ref: "#components/schemas/Book"
+      responses:
+        200:
+          description: Updated
+          content:
+            'application/json':
+              schema:
+                $ref: "#/components/schemas/BookUpdated"
+        400:
+          description: In case the author could not be validated
+        404:
+          description: The author was not found
 
 components:
   schemas:
@@ -295,4 +323,32 @@ components:
         authors:
           - id: 1
             name: Victor Hugo
+    BookUpdated:
+      description: A book, with an id (for update) and authors (response only)
+      allOf:
+        - $ref: "#/components/schemas/NewBook"
+        - type: object
+          properties:
+            id:
+              type: integer
+              format: int64
+            authors:
+              type: array
+              items:
+                $ref: "#/components/schemas/Author"
+              readOnly: true
+          required:
+            - id
+      example:
+        id: 1
+        title: Les Misérables
+        isbn: 9782266199261
+        editor: Pocket
+        year: 2009
+        language: FRENCH
+        authors:
+          - id: 1
+            name: Victor Hugo
+          - id: 2
+            name: Darwin Nunez
 
