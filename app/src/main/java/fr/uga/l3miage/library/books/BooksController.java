@@ -105,7 +105,7 @@ public class BooksController {
 
     }
 
-    @PutMapping({"/books/{id}","/books/{id}/authors"})
+    @PutMapping("/books/{id}")
     public BookDTO updateBook(@PathVariable("id") Long authorId, @RequestBody BookDTO book) {
         // attention BookDTO.id() doit être égale à id, sinon la requête utilisateur est mauvaise
         if (book.id() != authorId){
@@ -160,7 +160,5 @@ public class BooksController {
         BookDTO bookDTO = booksMapper.entityToDTO(book);
         return bookDTO;
     }
-
-    /* On a essayé, mais le dernier test PUT add an author to the second book ne marche pas */
 
 }
