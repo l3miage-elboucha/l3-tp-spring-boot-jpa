@@ -149,7 +149,6 @@ public class BooksController {
 
 
     @PutMapping("books/{id}/authors")
-    @ResponseStatus(HttpStatus.OK)
     /* On a changé le type de retour de la fonction en BookDTO,
        et le premier paramètre en bookId car on peut déjà récupérer l'id
        de l'auteur depuis le 2ème paramètre "author" or qu'on ne peut pas
