@@ -91,18 +91,20 @@ public class BooksController {
 
         try {
             Author author = this.authorService.get(authorId);
+            /*
+                If the title is not provided or empty
+                If the isbn is wrong (not from 10 to 13 digit)
+                If the year is not in the specified range
+                We return an error BAD_REQUEST(400)
+            */
             if ((titre == null) || (titre.trim().isEmpty()) || (year < -9999 || year > 9999) || (isbn == null) ||  (isbnLength > 13 || isbnLength < 10)) {
                 throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
             }
         } catch (EntityNotFoundException e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-
-
             bookService.save(authorId, bookEntity);
             return booksMapper.entityToDTO(bookEntity);
-
-
     }
 
     @PutMapping("/books/{id}")
